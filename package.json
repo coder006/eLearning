@@ -1,0 +1,25 @@
+{
+  "name": "elearning",
+  "version": "1.0.0",
+  "description": "e - Learning platform for HOPE Foundation as a part of National Digital Literacy Program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coder006/eLearning.git"
+  },
+  "keywords": [
+    "elearning"
+  ],
+  "author": "SAP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coder006/eLearning/issues"
+  },
+  "homepage": "https://github.com/coder006/eLearning#readme",
+  "dependencies": {
+    "hapi": "^11.0.2"
+  }
+}

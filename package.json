@@ -1,28 +1,20 @@
 {
-  "name": "elearning",
-  "version": "1.0.0",
-  "description": "e - Learning platform for HOPE Foundation as a part of National Digital Literacy Program",
-  "main": "index.js",
+  "name": "eLearning",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/coder006/eLearning.git"
-  },
-  "keywords": [
-    "elearning"
-  ],
-  "author": "SAP",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/coder006/eLearning/issues"
-  },
-  "homepage": "https://github.com/coder006/eLearning#readme",
   "dependencies": {
-    "boom": "^2.10.0",
-    "hapi": "^11.0.2",
-    "joi": "^6.9.1",
-    "mongoose": "^4.2.2"
+    "body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "ejs": "^2.3.4",
+    "express": "~4.13.1",
+    "express-boom": "^0.3.0",
+    "jade": "~1.11.0",
+    "mongodb": "^2.0.46",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0"
   }
 }

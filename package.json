@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/coder006/eLearning#readme",
   "dependencies": {
-    "hapi": "^11.0.2"
+    "boom": "^2.10.0",
+    "hapi": "^11.0.2",
+    "joi": "^6.9.1",
+    "mongoose": "^4.2.2"
   }
 }

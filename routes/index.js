@@ -1,6 +1,8 @@
 var express = require('express');
 var mongodb = require('mongodb');
 var boom = require('express-boom');
+var mongoose = require('mongoose');
+var User = require('../models/user').User
 var router = express.Router();
 
 var url = 'mongodb://localhost:27017/test1';
@@ -15,95 +17,52 @@ router.get('/helloworld', function(req, res, next) {
   res.render('helloworld', { title: 'Hello World' });
 });
 
+
 router.get('/user', function(req, res, next) {
-    MongoClient.connect(url, function(err, db) {
-        if(err) {
-            console.log('Unable to connect to mongodb server!');
+    User.find({}, function(err, users) {
+        if(!err) {
+            res.json(users);
         }
-        else {
-            console.log('Connection established to mongodb server at url', url);
-            
-            var collection = db.collection('users');
-            collection.find({}).toArray(function(err, result) {
-                if(err) {
-                    console.log( 'Error:', err );
-                }
-                else if(result.length) {
-                    console.log('Found', result);
-                    res.json(result);
-                }
-                else {
-                    console.log( 'No documents matched the criteria.' );
-                }
-                // Close database connection
-                db.close();
-            });
-        }
+        res.end('400');
     });
 });
+
 
 router.get('/user/:id', function(req, res, next) {
-    MongoClient.connect(url, function(err, db) {
-        if(err) {
-            console.log('Unable to connect to mongodb server!');
+    console.log('getting one user');
+    User.findOne({ 'username': req.params.id }, function(err, user) {
+        console.log(user);
+        if(!err) {
+            res.json(user);
         }
-        else {
-            console.log('Connection established to mongodb server at url', url);
-            
-            var params = req.params;
-            var collection = db.collection('users');
-            collection.find( {username: params.id} ).toArray(function(err, result) {
-                if(err) {
-                    console.log( 'Error:', err );
-                }
-                else if(result.length) {
-                    console.log('Found', result);
-                    res.json(result[0]);
-                }
-                else {
-                    console.log( 'No documents matched the criteria.' );
-                }
-                // Close database connection
-                db.close();
+        res.end('400');
+    });
+});
+
+
+router.post('/user', function(req, res) {
+    console.log('hello');
+    console.log(req.body);
+    var user = new User(req.body);
+    user.save(function (err, user) {
+        if (!err) {
+            res.json({'status': 201, 'message': 'user created'});
+        }
+        if (11000 === err.code || 11001 === err.code) {
+            res.end({'status': '403', 'message': 'user already exists!'});
+        }
+        if(err) {
+            // res.end('400');
+            var errors = err.errors;
+            var errorValues = {};
+            Object.keys(errors).forEach(function(key) {
+                var value = errors[key];
+                var temp = {'name': value['name'], 'message': value['message']};
+                errorValues[key] = temp;
             });
-            console.log(params.id);
+            res.json({'status': '400', 'message': 'errors encountered data validation', 'data': errorValues});
         }
     });
 });
 
-router.post('/user', function(req, res) {
-    MongoClient.connect(url, function(err, db) {
-        if(err) {
-            console.log('Unable to connect to mongodb server!');
-        }
-        else {
-            console.log('Connection established to mongodb server at url', url);
-            
-            var collection = db.collection('users');
-            collection.find( { username: req.body.username } ).toArray(function(err, result) {
-                if(err) {
-                    console.log("Error", err);
-                    db.close();
-                }
-                else if(result.length) {
-                    console.log("username already exists!");
-                    res.boom.badData('username already exists!');
-                    db.close();
-                }
-                else {
-                    collection.insert(req.body, function(err, result) {
-                        if(err) {
-                            console.log("Error", err);
-                        }
-                        else {
-                            res.end('200');
-                        }
-                        db.close();
-                    });
-                    console.log(req.body);
-                }
-            });
-        }
-    });
-});
 module.exports = router;

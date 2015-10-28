@@ -19,6 +19,7 @@ router.get('/helloworld', function(req, res, next) {
 
 
 router.get('/user', function(req, res, next) {
+    console.log(req.query);
     User.find({}, function(err, users) {
         if(!err) {
             res.json(users);

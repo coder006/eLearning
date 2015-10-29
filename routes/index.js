@@ -52,15 +52,12 @@ router.get('/user/:id', function(req, res, next) {
 router.post('/user', function(req, res) {
     console.log('hello');
     console.log(req.body);
-<<<<<<< Updated upstream
     var user = new User(req.body);    
     var hashedPassword = passwordHash.generate(user.password);   
     user.password = hashedPassword;
-=======
-    body = req.body;
-    body['levels'] = {'current': 'q1', 'completed': ['q2', 'q3'], 'remaining': ['q4', 'q5']};
-    var user = new User(body);
->>>>>>> Stashed changes
+    //body = req.body;
+    //body['levels'] = {'current': 'q1', 'completed': ['q2', 'q3'], 'remaining': ['q4', 'q5']};
+    var user = new User(req.body);
     user.save(function (err, user) {
         if (!err) {
             res.json({'status': 201, 'message': 'user created'});

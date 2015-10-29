@@ -3,6 +3,11 @@ var mongodb = require('mongodb');
 var boom = require('express-boom');
 var mongoose = require('mongoose');
 var User = require('../models/user').User;
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var passwordHash = require('password-hash');
+
 var router = express.Router();
 
 var url = 'mongodb://localhost:27017/test1';
@@ -38,10 +43,13 @@ router.get('/user/:id', function(req, res, next) {
     });
 });
 
+
 router.post('/user', function(req, res) {
     console.log('hello');
     console.log(req.body);
-    var user = new User(req.body);
+    var user = new User(req.body);    
+    var hashedPassword = passwordHash.generate(user.password);   
+    user.password = hashedPassword;
     user.save(function (err, user) {
         if (!err) {
             res.json({'status': 201, 'message': 'user created'});
@@ -62,5 +70,22 @@ router.post('/user', function(req, res) {
         }
     });
 });
+
+router.get('/login', function(req, res) {
+  res.sendfile('views/login.html');
+});
+
+router.post('/login', 
+            function(req, res, next) {
+                passport.authenticate('local', function(err, user, info) {
+                    if (err) { return next(err); }
+                    if (!user) { res.json({'status': '500' , 'message' : 'Failed to login'}); }
+                    req.logIn(user, function(err) {
+                      if (err) { return next(err); }
+                        res.json({'status': '200' , 'message' : 'Logged in successfully'});
+                    });
+                })(req, res, next);
+            });
+
 
 module.exports = router;

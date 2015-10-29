@@ -78,13 +78,24 @@ router.get('/centres', function(req, res, next) {
 	});
 });
 
-//API to get all details given a centre. Centre given in query parameter
+// API to get all details given a centre. Centre given in query parameter
 router.get('/students', function(req, res, next) {
 	Student.find({"centre": req.query.centre}, function(err, students) {
 		if(!err)
 			res.json(students);
 		else
 			res.end(err);
+	});
+});
+
+// API to insert data into centre
+router.post('/centres', function(req, res, next) {
+	var centre = new Centre(req.body);
+	centre.save(function(err, centre) {
+		if(!err) {
+			res.status(200).send();
+		} else
+			res.status(300).send();
 	});
 });
 module.exports = router;

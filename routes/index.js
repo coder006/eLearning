@@ -57,13 +57,14 @@ router.post('/user', function(req, res) {
     user.password = hashedPassword;
     //body = req.body;
     //body['levels'] = {'current': 'q1', 'completed': ['q2', 'q3'], 'remaining': ['q4', 'q5']};
-    var user = new User(req.body);
+    //var user = new User(req.body);
     user.save(function (err, user) {
         if (!err) {
             res.json({'status': 201, 'message': 'user created'});
         }
-        else if (11000 === err.code || 11001 === err.code) {
-            res.end({'status': '403', 'message': 'user already exists!'});
+        else if (11000 === err.code || 11001 === err.code) {        
+            res.end('500');
+            //res.end({'status': '403', 'message': 'user already exists!'});
         }
         else {
             // res.end('400');

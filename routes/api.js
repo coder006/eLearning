@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 var url = 'mongodb://localhost:27017/test1';
 var User = require('../models/user').User;
 var Level = require('../models/user').Level;
+var Centre = require('../models/user').Centre;
+var Student = require('../models/user').Student;
+
 
 router.get('/userlist', function(req, res, next) {
 	console.log("Within userlist");
@@ -35,4 +38,36 @@ router.post('/users', function(req, res, next) {
 	});
 });
 
+router.post('/students', function(req, res, next) {
+	console.log("Creating students");
+	var student = new Student(req.body);
+	console.log(req.body);
+	student.save( function(err, user) {
+		if (!err) {
+				req.body.levels.forEach(function(item) {
+				console.log(item);
+				console.log(item["remaining"]);
+			})
+            res.json({'status': 201, 'message': 'student record added'});
+        } else
+        	res.end(err);
+	});
+});
+
+
+//Test api
+router.get('/findStudentDetailsByCompletion',function(req,res,next){
+	console.log("Fetching student details who has completed the level");
+	
+	Student
+		.find({"centre": req.query.centre})
+		.select("username")
+		.exec( function(err, students) {
+			if(!err)
+				res.json(students.user.fname);
+			else
+				res.end('400');
+		});
+
+});
 module.exports = router;

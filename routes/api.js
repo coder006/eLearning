@@ -22,19 +22,6 @@ router.get('/userlist', function(req, res, next) {
 		});
 });
 
-router.get('/students', function(req, res, next) {
-	// var body = req.body;
-	Students.find({'centre': req.query.centre, 'noOfHoursCompleted': {$gte : 20}}, 
-		function(err, users) {
-			if(!err) {
-				res.json(users);
-			}
-			res.end('400');
-		});
-	// if()
-	// Student.find({});
-});
-
 router.post('/students', function(req, res, next) {
 	console.log("Creating students");
 	var student = new Student(req.body);
@@ -49,23 +36,6 @@ router.post('/students', function(req, res, next) {
         } else
         	res.end(err);
 	});
-});
-
-
-//Test api
-router.get('/findStudentDetailsByCompletion',function(req,res,next){
-	console.log("Fetching student details who has completed the level");
-	
-	Student
-		.find({"centre": req.query.centre})
-		.select("username")
-		.exec( function(err, students) {
-			if(!err)
-				res.json(students.user.fname);
-			else
-				res.end('400');
-		});
-
 });
 
 // API to get all centres
@@ -98,4 +68,57 @@ router.post('/centres', function(req, res, next) {
 			res.status(300).send();
 	});
 });
+
+
+//APIs to get the list of students who are in progress and completed by centre
+router.get('/studentsByStatus', function(req, res, next) {	
+	
+	var status = req.query.statuss;
+	console.log(status);
+	if(typeof(status) != undefined){
+		if(status == 'InProgress'){
+			console.log("inside in progress");
+			Student.find({'centre': req.query.centre,'hours_completed': {$lt : 20}})
+					.populate('user')
+					.exec(function(err, student) {	     
+					        if(!err) {
+					            console.log(student.user);
+					            res.json(student);
+					        }
+        			res.end('400');
+    		});
+		}else{
+			Student.find({'centre': req.query.centre,'hours_completed': {$gte : 20}}) 
+					.populate('user')
+					.exec(function(err, student) {	     
+					        if(!err) {
+					            console.log(student.user);
+					            res.json(student);
+					        }
+        			res.end('400');
+    		});
+		}
+	}else{
+		res.end('500');
+	}
+});
+
+//API to get students are getting trained under some faculty
+router.get('/studentsByFaculty', function(req, res, next){
+		User.findOne({"username": req.query.username}, function(err, user) {
+		if(!err){
+			if(user.centre != undefined){
+				User.find({"centre":user.centre, "type" : "S"}, function(err,student) {
+					if(!err){
+						res.json(student);
+					}
+				});
+			}
+		}else{
+			console.log("No username exists");
+			res.end(err);
+		}			
+	});
+});
+
 module.exports = router;

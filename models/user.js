@@ -26,7 +26,8 @@ var StudentSchema = mongoose.Schema({
     level: String,
     hours_completed: Number,
     quizTaken: Boolean,
-    quizPassed: Boolean
+    quizPassed: Boolean,
+    centre:String
 });
 
 var user = mongoose.model('User', UserSchema);

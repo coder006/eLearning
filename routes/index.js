@@ -79,7 +79,8 @@ router.post('/user', function(req, res) {
                     hours_completed: 0,
                     level: 'L1',
                     quiz_taken: false,
-                    quiz_passed: false
+                    quiz_passed: false,
+                    centre:user.centre
                 });
 
                 stud.save(function(err, student) {

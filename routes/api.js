@@ -67,4 +67,24 @@ router.get('/findStudentDetailsByCompletion',function(req,res,next){
 		});
 
 });
+
+// API to get all centres
+router.get('/centres', function(req, res, next) {
+	Centre.find({}, function(err, centres) {
+		if(!err)
+			res.json(centres);
+		else
+			res.end(err);
+	});
+});
+
+//API to get all details given a centre. Centre given in query parameter
+router.get('/students', function(req, res, next) {
+	Student.find({"centre": req.query.centre}, function(err, students) {
+		if(!err)
+			res.json(students);
+		else
+			res.end(err);
+	});
+});
 module.exports = router;

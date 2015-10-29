@@ -3,6 +3,7 @@ var mongodb = require('mongodb');
 var boom = require('express-boom');
 var mongoose = require('mongoose');
 var User = require('../models/user').User;
+var Student = require('../models/user').Student;
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -43,6 +44,20 @@ router.get('/user/:id', function(req, res, next) {
     });
 });
 
+router.get('/student/:id', function(req, res, next) {
+    console.log('getting one user');
+    Student
+    .findOne({ 'username': req.params.id })
+    .populate('user')
+    .exec(function(err, student) {
+        // console.log(student);
+        if(!err) {
+            console.log(student.user);
+            res.json(student);
+        }
+        res.end('400');
+    });
+});
 
 // router.get('/views*', function(req, res, next) {
 //     res.render
@@ -55,11 +70,24 @@ router.post('/user', function(req, res) {
     var user = new User(req.body);    
     var hashedPassword = passwordHash.generate(user.password);   
     user.password = hashedPassword;
-    //body = req.body;
-    //body['levels'] = {'current': 'q1', 'completed': ['q2', 'q3'], 'remaining': ['q4', 'q5']};
-    //var user = new User(req.body);
     user.save(function (err, user) {
         if (!err) {
+            if(user.type == 'S') {
+                var stud = new Student({
+                    username: user.username,
+                    user: user._id,  
+                    hours_completed: 0,
+                    level: 'L1',
+                    quiz_taken: false,
+                    quiz_passed: false
+                });
+
+                stud.save(function(err, student) {
+                    if(!err) {
+                        res.end('Student created: 200');
+                    }
+                });
+            }
             res.json({'status': 201, 'message': 'user created'});
         }
         else if (11000 === err.code || 11001 === err.code) {        

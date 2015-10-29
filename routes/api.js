@@ -22,20 +22,17 @@ router.get('/userlist', function(req, res, next) {
 		});
 });
 
-router.post('/users', function(req, res, next) {
-	console.log("Entered post users");
-	var user = new User(req.body);
-	console.log(req.body);
-	user.save( function(err, user) {
-		if (!err) {
-				req.body.levels.forEach(function(item) {
-				console.log(item);
-				console.log(item["remaining"]);
-			})
-            res.json({'status': 201, 'message': 'user created'});
-        } else
-        	res.end(err);
-	});
+router.get('/students', function(req, res, next) {
+	// var body = req.body;
+	Students.find({'centre': req.query.centre, 'noOfHoursCompleted': {$gte : 20}}, 
+		function(err, users) {
+			if(!err) {
+				res.json(users);
+			}
+			res.end('400');
+		});
+	// if()
+	// Student.find({});
 });
 
 router.post('/students', function(req, res, next) {

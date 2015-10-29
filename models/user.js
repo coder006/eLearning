@@ -11,6 +11,7 @@ var UserSchema = mongoose.Schema({
     aadharCard :String,
     enrollDate: Date,
     centre: String,
+    adhaar: String,
     type: String
 });
 
@@ -19,6 +20,14 @@ var LevelSchema = mongoose.Schema({
     noOfHours: { type: [Number], required:true}
 });
 
+var StudentSchema = mongoose.Schema({
+    username: String,
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    level: String,
+    hours_completed: Number,
+    quizTaken: Boolean,
+    quizPassed: Boolean
+});
 
 var user = mongoose.model('User', UserSchema);
 var level =mongoose.model('Level', LevelSchema);
@@ -30,20 +39,9 @@ var CenterSchema = mongoose.Schema({
     location:String
 });
 
-var StudentSchema = mongoose.Schema({
-    user:[{type: Schema.Types.ObjectId, ref: 'User' }],
-    username:String,
-    level: String,
-    noOfHoursCompleted : Number,
-    quizTaken : Boolean,
-    quizResult :  Boolean,
-    centre : String
-});
-
 
 var centre = mongoose.model('Centre', CenterSchema);
 var student = mongoose.model('Student', StudentSchema);
-
 
 module.exports = {
     User: user,

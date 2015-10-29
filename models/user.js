@@ -10,10 +10,20 @@ var UserSchema = mongoose.Schema({
     address: String,
     dob: Date,
     createDate: Date,
-    updationDate: Date
+    updationDate: Date,
+    centre: String,
+    levels: [{completed:[String], remaining:[String], current:String}] 
 });
 
+var LevelSchema = mongoose.Schema({
+    levelName: { type: String, required: true, unique: true},
+    quizzes: { type: [String], required:true}
+});
+
+
+var level =mongoose.model('Level', LevelSchema);
 var user = mongoose.model('User', UserSchema);
 module.exports = {
-    User: user
+    User: user,
+    Level: level
 };

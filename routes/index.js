@@ -2,7 +2,7 @@ var express = require('express');
 var mongodb = require('mongodb');
 var boom = require('express-boom');
 var mongoose = require('mongoose');
-var User = require('../models/user').User
+var User = require('../models/user').User;
 var router = express.Router();
 
 var url = 'mongodb://localhost:27017/test1';
@@ -17,7 +17,6 @@ router.get('/learning', function(req, res, next) {
   res.render('index', { title: 'Hello World' });
 });
 
-
 router.get('/user', function(req, res, next) {
     console.log(req.query);
     User.find({}, function(err, users) {
@@ -27,7 +26,6 @@ router.get('/user', function(req, res, next) {
         res.end('400');
     });
 });
-
 
 router.get('/user/:id', function(req, res, next) {
     console.log('getting one user');
@@ -39,7 +37,6 @@ router.get('/user/:id', function(req, res, next) {
         res.end('400');
     });
 });
-
 
 router.post('/user', function(req, res) {
     console.log('hello');

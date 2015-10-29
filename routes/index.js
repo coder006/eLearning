@@ -44,20 +44,31 @@ router.get('/user/:id', function(req, res, next) {
 });
 
 
+// router.get('/views*', function(req, res, next) {
+//     res.render
+// });
+
+
 router.post('/user', function(req, res) {
     console.log('hello');
     console.log(req.body);
+<<<<<<< Updated upstream
     var user = new User(req.body);    
     var hashedPassword = passwordHash.generate(user.password);   
     user.password = hashedPassword;
+=======
+    body = req.body;
+    body['levels'] = {'current': 'q1', 'completed': ['q2', 'q3'], 'remaining': ['q4', 'q5']};
+    var user = new User(body);
+>>>>>>> Stashed changes
     user.save(function (err, user) {
         if (!err) {
             res.json({'status': 201, 'message': 'user created'});
         }
-        if (11000 === err.code || 11001 === err.code) {
+        else if (11000 === err.code || 11001 === err.code) {
             res.end({'status': '403', 'message': 'user already exists!'});
         }
-        if(err) {
+        else {
             // res.end('400');
             var errors = err.errors;
             var errorValues = {};

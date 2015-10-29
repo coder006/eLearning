@@ -12,7 +12,7 @@ var UserSchema = mongoose.Schema({
     createDate: Date,
     updationDate: Date,
     centre: String,
-    levels: [{completed:[String], remaining:[String], current:String}] 
+    levels: {current: {type: String}, completed: [String], remaining: [String]}
 });
 
 var LevelSchema = mongoose.Schema({

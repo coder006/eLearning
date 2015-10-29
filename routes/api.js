@@ -8,12 +8,15 @@ var Level = require('../models/user').Level;
 
 router.get('/userlist', function(req, res, next) {
 	console.log("Within userlist");
-	User.find({"centre":req.query.centre}, function(err, users) {
-		if(!err)
-			res.json(users);
-		else
-			res.end('400');
-	});
+	User
+		.find({"centre":req.query.centre})
+		.select("_id username")
+		.exec( function(err, users) {
+			if(!err)
+				res.json(users);
+			else
+				res.end('400');
+		});
 });
 
 router.post('/users', function(req, res, next) {

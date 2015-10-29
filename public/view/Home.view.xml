@@ -1,11 +1,25 @@
 <mvc:View
 	controllerName="sap.ui.demo.nav.controller.Home"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
-	<Page title="{i18n>homePageTitle}" class="sapUiResponsiveContentPadding">
+	xmlns:mvc="sap.ui.core.mvc" >
+	<Page showHeader="false" class="sapUiResponsiveContentPadding loginPage">
 		<content>
-			<Button id="displayNotFoundBtn" text="{i18n>DisplayNotFound}" press="onDisplayNotFound" class="sapUiTinyMarginEnd"/>
-			<Button id="employeeListBtn" text="{i18n>ShowEmployeeList}" press="onNavToEmployees" class="sapUiTinyMarginEnd"/>
+			<Panel>
+				<content>
+					<Label text="Username" />
+					<Input
+						type="Text"
+						class="sapUiSmallMarginBottom"
+						placeholder="Enter Username" id="userNameInput"/>
+
+					<Label text="Password" />
+					<Input
+						type="Password"
+						placeholder="Enter password" id="pwdInput" />
+					<Button text="Login" width="100%" press="userLogin"></Button>
+					<Label id="message" ></Label>
+				</content>
+			</Panel>
 		</content>
 	</Page>
 </mvc:View>

@@ -69,7 +69,7 @@
 				"name": "appHome",
 				"target": "home"
 			}, {
-				"pattern": "employees",
+				"pattern": "employees/{user}",
 				"name": "employeeList",
 				"target": "employees"
 			}],

@@ -10,12 +10,15 @@ sap.ui.define([
 			oRouter.getRoute("employeeList").attachMatched(this._onRouteMatched, this);
              //this.renderSelectedTab(this.getView().byId('idIconTabBarNoIcons').getSelectedKey());
 
+
+
 		},
 
 		_onRouteMatched: function(oEvent) {
 			var me = this;
 			var oArgs = oEvent.getParameter('arguments');
 			this.username = oArgs.user;
+
 			$.ajax({
 				type: "GET",
                 url: encodeURI("/user/" + me.username),
@@ -42,8 +45,12 @@ sap.ui.define([
                     studUsername = this.studentList[i].username;
                }
             }
+            this.callStudent(studUsername);
+        },
 
-            $.ajax({
+        callStudent: function(studUsername){
+            var me= this;
+             $.ajax({
                 type: "GET",
                 url: encodeURI("/student/" + studUsername),
                 headers: {
@@ -53,7 +60,6 @@ sap.ui.define([
                    me.renderStudentInfoDetail(studInfo);
                 }
             });
-
         },
 
         renderStudentInfoDetail: function(studInfo){
@@ -65,11 +71,11 @@ sap.ui.define([
             this.getView().byId('phn').setText(studInfo.user.phone);
             this.getView().byId('email').setText(studInfo.user.email);
 
-            this.getView().byId('level').setText("Level: " + studInfo.level);
-            this.getView().byId('quiz').setText("Quiz Taken: " + studInfo.quizTaken?"Yes" : "No");
+            this.getView().byId('level').setText(studInfo.level);
+            this.getView().byId('quiz').setText(studInfo.quizTaken?"Yes" : "No");
             var hours = studInfo.hours_completed;
             var percentCompleted = hours/20*100;
-            this.getView().byId('hours').setText("Hours Completed: " + hours);
+            this.getView().byId('hours').setText(hours);
 
 
             this.getView().byId('ProgressBar').setDisplayValue(""+percentCompleted);
@@ -81,6 +87,7 @@ sap.ui.define([
             this.studentList = studentInfo;
             var items = this.getView().byId('studList');
             items.removeAllItems();
+            this.callStudent(studentInfo[0].username);
             for(var i=0; i<studentInfo.length; i++) {
                 var stud = studentInfo[i];
                 var listItem = new sap.m.StandardListItem({
@@ -89,6 +96,8 @@ sap.ui.define([
                     icon: "./images/" + stud.username + ".jpg",
                 });
                 items.addItem(listItem);
+                
+                
             }
 
         },
@@ -126,7 +135,7 @@ sap.ui.define([
                 console.log('this repo is hit');
                 $.ajax({
                     type: "GET",
-                    url: encodeURI("/api/studentsByStatus"),
+                    url: encodeURI("/api/studentsCountByStatus"),
                     data: {
                         'statuss': 'InProgress',
                         'centre': 'TN_CH'
@@ -138,9 +147,12 @@ sap.ui.define([
                         // me.getView().byId('employeeListPage').setTitle("Welcome " + userInfo.fname +" !");
                         console.log('list of students');
                         console.log(studList);
+                        var percent = Math.floor(studList.InProgress / studList.Total * 100);
                         // $()
-                        var className = "p" + Object.keys(studList).length;
+                        var className = "p" + percent;
+                        console.log(className);
                         me.getView().byId('circleStudentsCompleted').addStyleClass(className);
+                       //me.getView().byId('textStudentsCompleted').setText(percent + "%");
                     },
                     error: function(err) {
                         console.log(err);

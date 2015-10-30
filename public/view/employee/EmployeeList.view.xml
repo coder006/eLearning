@@ -1,7 +1,7 @@
 <mvc:View
 	controllerName="sap.ui.demo.nav.controller.employee.EmployeeList"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
 	xmlns:f="sap.ui.layout.form">
 	<Page id="employeeListPage" 
@@ -74,13 +74,38 @@
 										</Toolbar>
 										</headerToolbar>
 										<content>
-											<Text id="level"/>
-											<Text id="quiz"/>
-											<Text id="hours"/>
-											<Label text="Progress Level"/>
+										
+														<l:Grid
+															defaultSpan="L12 M12 S12"
+															width="auto">
+															<l:content>
+																<f:SimpleForm id="SimpleFormDisplay2"
+																	minWidth="1024"
+																	maxContainerCols="2"
+																	editable="false"
+																	layout="ResponsiveGridLayout"
+																	labelSpanL="3"
+																	labelSpanM="3"
+																	emptySpanL="4"
+																	emptySpanM="4"
+																	columnsL="1"
+																	columnsM="1">
+																	<f:content>
+																		<Label text="Level" />
+																		<Text id="level" />
+																		<Label text="Quiz Taken" />
+																		<Text id="quiz" />
+																		<Label text="Hours Completed" />
+																		<Text id="hours" />
+																		<Label text="Progress" />
+																		
+																	</f:content>
+																</f:SimpleForm>
+															</l:content>
+														</l:Grid>
 											<ProgressIndicator class="sapUiSmallMarginBottom" 
 											showValue="true"
-											state="None" />
+											state="None"  id="ProgressBar"/>
 										</content>
 										</Panel>
 									</content>
@@ -102,12 +127,12 @@
 					<IconTabFilter
 						text="Reports" key='repo'>
 						<html:div id="circleStudentsCompleted" class="c100 big green">
-						  <html:span id="textStudentsCompleted">25%</html:span>
+						  <html:span id="textStudentsCompleted">InProgress</html:span>
 						  <html:div class="slice">
 						    <html:div class="bar"></html:div>
 						    <html:div class="fill"></html:div>
 						  </html:div>
-						</html:div>
+						</html:div>					
 					</IconTabFilter>
 				</items>
 			</IconTabBar>			

@@ -76,7 +76,7 @@ router.post('/user', function(req, res) {
                 var stud = new Student({
                     username: user.username,
                     user: user._id,  
-                    hours_completed: 0,
+                    hours_completed: 10,
                     level: 'L1',
                     quiz_taken: false,
                     quiz_passed: false,

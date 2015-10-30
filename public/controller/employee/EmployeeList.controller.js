@@ -55,14 +55,28 @@ sap.ui.define([
                 }
             });
 
-            /*var sToPageId = oEvent.getParameter("listItem").getCustomData()[0].getValue();
-
-            this.getSplitAppObj().toDetail(this.createId(sToPageId));*/
         },
 
         renderStudentInfoDetail: function(studInfo){
-            console.log(studInfo);
+        	this.getView().byId('SimpleFormDisplay').setTitle(studInfo.user.fname + " " + studInfo.user.lname );
+        	this.getView().byId('username').setText(studInfo.user.username);
+            this.getView().byId('enDate').setText(studInfo.user.enrollDate);
+            this.getView().byId('aadhar').setText(studInfo.user.adhaar);
+            this.getView().byId('address').setText(studInfo.user.adhaar);
+            this.getView().byId('phn').setText(studInfo.user.phone);
+            this.getView().byId('email').setText(studInfo.user.email);
+
+            this.getView().byId('level').setText("Level: " + studInfo.level);
+            this.getView().byId('quiz').setText("Quiz Taken: " + studInfo.quizTaken?"Yes" : "No");
+            var hours = studInfo.hours_completed;
+            var percentCompleted = hours/20*100;
+            this.getView().byId('hours').setText("Hours Completed: " + hours);
+
+
+            this.getView().byId('ProgressBar').setDisplayValue(""+percentCompleted);
+            this.getView().byId('ProgressBar').setPercentValue(percentCompleted);
         },  
+
 
         insertStudentListItems: function(studentInfo) {
             this.studentList = studentInfo;

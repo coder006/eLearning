@@ -1,7 +1,9 @@
 <mvc:View
 	controllerName="sap.ui.demo.nav.controller.employee.EmployeeList"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml">
+	xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
 	<Page id="employeeListPage" 
 		showNavButton="false"
 		class="sapUiResponsiveContentPadding">
@@ -17,10 +19,10 @@
 						text="Students" key='stud'>
 						<content>
 							
-						<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master2" >
+						<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master2" class="splitter">
 							<detailPages>
 								
-								<Page id="detail" title="Detail 2" class="sapUiStdPage">
+								<Page id="detail" class="sapUiStdPage" showHeader="false"  >
 									<content>
 										<Panel width="auto" class="sapUiResponsiveMargin">
 										<headerToolbar>
@@ -29,8 +31,40 @@
 										</Toolbar>
 										</headerToolbar>
 										<content>
-										
-										<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+									
+														<l:Grid
+															defaultSpan="L12 M12 S12"
+															width="auto">
+															<l:content>
+																<f:SimpleForm id="SimpleFormDisplay"
+																	minWidth="1024"
+																	maxContainerCols="2"
+																	editable="false"
+																	layout="ResponsiveGridLayout"
+																	labelSpanL="3"
+																	labelSpanM="3"
+																	emptySpanL="4"
+																	emptySpanM="4"
+																	columnsL="1"
+																	columnsM="1">
+																	<f:content>
+																		<Label text="User Name" />
+																		<Text id="username" />
+																		<Label text="Enrolled Date" />
+																		<Text id="enDate" />
+																		<Label text="Aadhar" />
+																		<Text id="aadhar" />
+																		<Label text="Address" />
+																		<Text id="address" />
+																		<Label text="Phone Number" />
+																		<Text id="phn" />																		
+																		<Label text="E-mail" />
+																		<Text id="email" />
+																	</f:content>
+																</f:SimpleForm>
+															</l:content>
+														</l:Grid>
+											
 										</content>
 										</Panel>
 										<Panel width="auto" class="sapUiResponsiveMargin">
@@ -40,7 +74,13 @@
 										</Toolbar>
 										</headerToolbar>
 										<content>
-										<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+											<Text id="level"/>
+											<Text id="quiz"/>
+											<Text id="hours"/>
+											<Label text="Progress Level"/>
+											<ProgressIndicator class="sapUiSmallMarginBottom" 
+											showValue="true"
+											state="None" />
 										</content>
 										</Panel>
 									</content>

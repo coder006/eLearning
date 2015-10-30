@@ -7,7 +7,64 @@
 		class="sapUiResponsiveContentPadding">
 
 		<content>
-			
+			<IconTabBar
+				id="idIconTabBarNoIcons"
+				expanded="true"
+				expandable="false"
+				class="sapUiResponsiveContentPadding" select="handleTabSelection">
+				<items>
+					<IconTabFilter
+						text="Students" key='stud'>
+						<content>
+							
+						<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master2" >
+							<detailPages>
+								
+								<Page id="detail" title="Detail 2" class="sapUiStdPage">
+									<content>
+										<Panel width="auto" class="sapUiResponsiveMargin">
+										<headerToolbar>
+										<Toolbar height="3rem">
+										<Title text="Student Details"/>
+										</Toolbar>
+										</headerToolbar>
+										<content>
+										
+										<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+										</content>
+										</Panel>
+										<Panel width="auto" class="sapUiResponsiveMargin">
+										<headerToolbar>
+										<Toolbar height="3rem">
+										<Title text="Course Details"/>
+										</Toolbar>
+										</headerToolbar>
+										<content>
+										<Text text="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" />
+										</content>
+										</Panel>
+									</content>
+										
+								</Page>
+							</detailPages>
+							<masterPages>
+								<Page id="master2" icon="sap-icon://action" class="sapUiStdPage" showHeader="false">
+									<content>
+										<List select="onListItemPress" id="studList" mode="SingleSelectMaster">
+											<items></items>
+										</List>
+									</content>
+								</Page>
+							</masterPages>
+						</SplitApp>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter
+						text="Reports" key='repo'>
+						<Text text="Attachments go here ..." />
+					</IconTabFilter>
+				</items>
+			</IconTabBar>			
 		</content>
 	</Page>
 </mvc:View>

@@ -105,14 +105,21 @@ router.get('/studentsByStatus', function(req, res, next) {
 
 //API to get students are getting trained under some faculty
 router.get('/studentsByFaculty', function(req, res, next){
+	console.log('hi there');
 		User.findOne({"username": req.query.username}, function(err, user) {
 		if(!err){
+			console.log('not an error here');
+			console.log(user.centre);
 			if(user.centre != undefined){
 				User.find({"centre":user.centre, "type" : "S"}, function(err,student) {
 					if(!err){
 						res.json(student);
 					}
+					res.end('400');
 				});
+			}
+			else {
+				res.end('400');
 			}
 		}else{
 			console.log("No username exists");

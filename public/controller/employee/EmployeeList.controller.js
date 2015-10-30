@@ -50,8 +50,7 @@ sap.ui.define([
                           "Content-Type": "application/json"
                          },
                 success: function( studInfo){                 
-                   me.renderStudentInfoDetai
-                   l(studInfo);
+                   me.renderStudentInfoDetail(studInfo);
                 }
             });
 
@@ -129,8 +128,8 @@ sap.ui.define([
                     type: "GET",
                     url: encodeURI("/api/studentsByStatus"),
                     data: {
-                        'status': 'inProgress',
-                        'centre': 'abc'
+                        'statuss': 'InProgress',
+                        'centre': 'TN_CH'
                     },
                     headers: {
                               "Content-Type": "application/json"

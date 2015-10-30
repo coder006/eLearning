@@ -103,6 +103,48 @@ router.get('/studentsByStatus', function(req, res, next) {
 	}
 });
 
+
+//APIs to get the list of students who are in progress and completed by centre
+router.get('/studentsCountByStatus', function(req, res, next) {	
+	
+	var totalStudents;
+	Student.find({"centre": req.query.centre}, function(err, students) {
+		if(!err)
+			totalStudents = Object.keys(students).length;
+		else
+			res.end(err);
+	});
+
+	var status = req.query.statuss;
+	console.log(status);
+	if(typeof(status) != undefined){
+		if(status == 'InProgress'){
+			console.log("inside in progress");
+			Student.find({'centre': req.query.centre,'hours_completed': {$lt : 20}})
+					.populate('user')
+					.exec(function(err, student) {	     
+					        if(!err) {
+					            console.log(student.user);
+					            res.json({"InProgress" : Object.keys(student).length , "Total" : totalStudents});
+					        }
+        			res.end('400');
+    		});
+		}else{
+			Student.find({'centre': req.query.centre,'hours_completed': {$gte : 20}}) 
+					.populate('user')
+					.exec(function(err, student) {	     
+					        if(!err) {
+					            console.log(student.user);
+					            res.json({"Completed" : Object.keys(student).length , "Total" : totalStudents});
+					        }
+        			res.end('400');
+    		});
+		}
+	}else{
+		res.end('500');
+	}
+});
+
 //API to get students are getting trained under some faculty
 router.get('/studentsByFaculty', function(req, res, next){
 	console.log('hi there');

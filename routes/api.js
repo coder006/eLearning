@@ -113,7 +113,7 @@ router.get('/studentsByFaculty', function(req, res, next){
 						res.json(student);
 					}
 				});
-			}else if(user.centre== null && user.type)
+			}
 		}else{
 			console.log("No username exists");
 			res.end(err);

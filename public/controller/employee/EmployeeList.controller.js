@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/demo/nav/controller/BaseController"
 ], function (BaseController) {
-	"use strict";
+	// "use strict";
 
 	return BaseController.extend("sap.ui.demo.nav.controller.employee.EmployeeList", {
 		onInit: function () {
@@ -50,7 +50,8 @@ sap.ui.define([
                           "Content-Type": "application/json"
                          },
                 success: function( studInfo){                 
-                   me.renderStudentInfoDetail(studInfo);
+                   me.renderStudentInfoDetai
+                   l(studInfo);
                 }
             });
 
@@ -110,6 +111,29 @@ sap.ui.define([
             }
             else if(key == 'repo') {
                 console.log('this repo is hit');
+                $.ajax({
+                    type: "GET",
+                    url: encodeURI("/api/studentsByStatus"),
+                    data: {
+                        'status': 'inProgress',
+                        'centre': 'abc'
+                    },
+                    headers: {
+                              "Content-Type": "application/json"
+                             },
+                    success: function( studList ){                 
+                        // me.getView().byId('employeeListPage').setTitle("Welcome " + userInfo.fname +" !");
+                        console.log('list of students');
+                        console.log(studList);
+                        // $()
+                        var className = "p" + Object.keys(studList).length;
+                        me.getView().byId('circleStudentsCompleted').addStyleClass(className);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+                // $('#myStat').circliful();
             }
 
         }

@@ -1,7 +1,7 @@
 <mvc:View
 	controllerName="sap.ui.demo.nav.controller.employee.EmployeeList"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc">
+	xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page id="employeeListPage" 
 		showNavButton="false"
 		class="sapUiResponsiveContentPadding">
@@ -61,7 +61,13 @@
 					</IconTabFilter>
 					<IconTabFilter
 						text="Reports" key='repo'>
-						<Text text="Attachments go here ..." />
+						<html:div id="circleStudentsCompleted" class="c100 big green">
+						  <html:span id="textStudentsCompleted">25%</html:span>
+						  <html:div class="slice">
+						    <html:div class="bar"></html:div>
+						    <html:div class="fill"></html:div>
+						  </html:div>
+						</html:div>
 					</IconTabFilter>
 				</items>
 			</IconTabBar>			

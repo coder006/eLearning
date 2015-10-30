@@ -120,7 +120,7 @@ router.post('/login',
                     if (!user) { res.json({'status': '500' , 'message' : 'Failed to login'}); }
                     req.logIn(user, function(err) {
                       if (err) { return next(err); }
-                        res.json({'status': '200' , 'message' : 'Logged in successfully'});
+                        res.json({'status': '200' , 'type' : user.type , 'message' : 'Logged in successfully'});
                     });
                 })(req, res, next);
             });

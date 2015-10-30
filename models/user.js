@@ -12,6 +12,8 @@ var UserSchema = mongoose.Schema({
     enrollDate: Date,
     centre: String,
     adhaar: String,
+    phone:Number,
+    email:String,
     type: String
 });
 
